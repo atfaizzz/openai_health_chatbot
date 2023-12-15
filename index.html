@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Chatbot</title>
+</head>
+<body>
+    <div id="chatbox">
+        <!-- Display chatbot responses here -->
+    </div>
+    <input type="text" id="user_input" placeholder="Type your message...">
+    <button id="send_btn">Send</button>
+
+    <script>
+        const send_btn = document.getElementById('send_btn');
+        const user_input = document.getElementById('user_input');
+        const chatbox = document.getElementById('chatbox');
+
+        send_btn.addEventListener('click', async () => {
+            const msg = user_input.value;
+            const response = await fetch(`/get?msg=${msg}`);
+            const response_text = await response.text();
+            chatbox.innerHTML += `<p>User: ${msg}</p><p>AI: ${response_text}</p>`;
+            user_input.value = '';
+        });
+    </script>
+</body>
+</html>
